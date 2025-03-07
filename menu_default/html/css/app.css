@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Background overlay */
+.background {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.background.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Menu container */
+#menus {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Menu styles */
+.menu {
+  width: 380px;
+  height: auto;
+  max-height: 600px;
+  background: #1e2124 ;
+  border-radius: 12px;
+  
+  border: 1px solid rgba(103, 232, 249, 0.158);
+  box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(103, 232, 249, 0.2);
+
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  margin-left: 380px;
+}
+
+.menu.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Menu header */
+.menu .head {
+  background: #1e2124 ;
+  padding: 20px 24px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu .head .close-btn {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.menu .head .close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Menu items container */
+.menu .menu-items {
+  max-height: calc(600px - 84px);
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.menu .menu-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu .menu-items::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.menu .menu-items::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+/* Menu item */
+.menu .menu-item {
+  padding: 16px 24px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu .menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu .menu-item .title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu .menu-item .subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  padding-left: 32px;
+}
+
+/* Icons */
+.menu .menu-item svg {
+  color: white;
+  opacity: 0.9;
+}
+
+/* Back button */
+.menu .back-button {
+  padding: 16px 24px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.menu .back-button:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.menu .back-button svg {
+  color: white;
+  opacity: 0.9;
+}
+
+/* Animations */
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu.active {
+  animation: menuSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .menu {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 90vh;
+    border-radius: 12px 12px 0 0;
+    position: fixed;
+    bottom: 0;
+    margin-left: 0;
+  }
+  
+  .menu.active {
+    transform: translateY(0);
+  }
+  
+  @keyframes menuSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
